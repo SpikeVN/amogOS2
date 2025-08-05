@@ -1,11 +1,11 @@
-name: Custom Vanilla Desktop # Replace this name with your image name
-id: custom # Replace this ID with your image ID
+name: "SpikeBonjour's Uncrashable OS" # Replace this name with your image name
+id: amogOS2 # Replace this ID with your image ID
 stages:
 - id: build
-  base: ghcr.io/vanilla-os/desktop:main # Optionally, Replace this image URL with a different one i.e. nvidia:main, etc
+  base: ghcr.io/vanilla-os/nvidia:main # Optionally, Replace this image URL with a different one i.e. nvidia:main, etc
   singlelayer: false
   labels:
-    maintainer: self-maintained # Optionally, Replace this with your name
+    maintainer: SpikeBonjour # Optionally, Replace this with your name
   args:
     DEBIAN_FRONTEND: noninteractive # Set the image environment as non-interactive
   
@@ -22,17 +22,27 @@ stages:
     - apt-get update
 
   # Put your custom actions below this comment
-
-  - name: example-packages # Sample module using the built-in Apt module to install packages
+  - name: essential packages # Sample module using the built-in Apt module to install packages
     type: apt
     source:
       packages:
-      - vim
+      - neovim
 
-  - name: example-commands # Sample module demonstrating the Shell module with custom commands
+  - name: ibus-bamboo installation # Sample module demonstrating the Shell module with custom commands
     type: shell
     commands:
-    - echo Example output
+    - add-apt-repository ppa:bamboo-engine/ibus-bamboo
+    - apt-get update
+    - apt-get install ibus ibus-bamboo --install-recommends
+    - env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['BambooUs', 'Bamboo']" && gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
+
+  - name: ghostty installation # Sample module demonstrating the Shell module with custom commands
+    type: shell
+    commands:
+    - echo 'deb http://download.opensuse.org/repositories/home:/clayrisser:/sid/Debian_Unstable/ /' | sudo tee /etc/apt/sources.list.d/home:clayrisser:sid.list
+    - curl -fsSL https://download.opensuse.org/repositories/home:clayrisser:sid/Debian_Unstable/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_clayrisser_sid.gpg > /dev/null
+    - apt update
+    - apt install ghostty
 
   - name: example-modules # Sample module demonstrating importing local and remote modules
     type: includes
