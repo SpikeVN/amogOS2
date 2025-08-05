@@ -33,8 +33,8 @@ stages:
   - name: add software repositories # Sample module demonstrating the Shell module with custom commands
     type: shell
     commands:
-    - echo 'deb http://download.opensuse.org/repositories/home:/clayrisser:/sid/Debian_Unstable/ /' | sudo tee /etc/apt/sources.list.d/home:clayrisser:sid.list
-    - curl -fsSL https://download.opensuse.org/repositories/home:clayrisser:sid/Debian_Unstable/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_clayrisser_sid.gpg > /dev/null
+    - echo 'deb http://download.opensuse.org/repositories/home:/clayrisser:/sid/Debian_Unstable/ /' | tee /etc/apt/sources.list.d/home:clayrisser:sid.list
+    - curl -fsSL https://download.opensuse.org/repositories/home:clayrisser:sid/Debian_Unstable/Release.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/home_clayrisser_sid.gpg > /dev/null
     - apt update
 
   - name: essential packages # Sample module using the built-in Apt module to install packages
