@@ -40,6 +40,9 @@ stages:
       - ibus
       - xdg-desktop-portal-gnome
       - xdg-desktop-portal-gtk
+      - nvidia-settings
+      - mesa-utils
+      - vulkan-tools
 
   - name: custom deb files # Sample module demonstrating importing local and remote modules
     type: includes
