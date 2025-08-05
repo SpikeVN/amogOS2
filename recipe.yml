@@ -48,12 +48,12 @@ stages:
     - apt update
     - apt install ghostty
 
-    - name: vesktop installation # Sample module demonstrating the Shell module with custom commands
-      type: shell
-      commands:
-      - wget https://vencord.dev/download/vesktop/amd64/deb -o vesktop.deb
-      - apt-get install -y ./vesktop.deb
-      - rm vesktop.deb
+  - name: vesktop installation # Sample module demonstrating the Shell module with custom commands
+    type: shell
+    commands:
+    - wget https://vencord.dev/download/vesktop/amd64/deb -o vesktop.deb
+    - apt-get install -y ./vesktop.deb
+    - rm vesktop.deb
 
   - name: example-modules # Sample module demonstrating importing local and remote modules
     type: includes
