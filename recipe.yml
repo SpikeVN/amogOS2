@@ -26,9 +26,9 @@ stages:
   - name: download debs # Sample module demonstrating the Shell module with custom commands
     type: shell
     commands:
-    - wget -O /deb-pkgs "https://download.opensuse.org/repositories/home:/lamlng/Debian_Unstable/amd64/ibus-bamboo_0.8.4-0_amd64.deb"
-    - wget -O /deb-pkgs "https://github.com/Alex313031/thorium/releases/download/M130.0.6723.174/thorium-browser_130.0.6723.174_AVX2.deb"
-    - wget -O /deb-pkgs "https://vencord.dev/download/vesktop/amd64/deb" -o vesktop.deb
+    - wget -P /deb-pkgs "https://download.opensuse.org/repositories/home:/lamlng/Debian_Unstable/amd64/ibus-bamboo_0.8.4-0_amd64.deb"
+    - wget -P /deb-pkgs "https://github.com/Alex313031/thorium/releases/download/M130.0.6723.174/thorium-browser_130.0.6723.174_AVX2.deb"
+    - wget -P /deb-pkgs "https://vencord.dev/download/vesktop/amd64/deb" -o vesktop.deb
 
   - name: add software repositories # Sample module demonstrating the Shell module with custom commands
     type: shell
