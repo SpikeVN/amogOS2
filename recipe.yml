@@ -28,7 +28,7 @@ stages:
     commands:
     - wget -P /deb-pkgs "https://download.opensuse.org/repositories/home:/lamlng/Debian_Unstable/amd64/ibus-bamboo_0.8.4-0_amd64.deb"
     - wget -P /deb-pkgs "https://github.com/Alex313031/thorium/releases/download/M130.0.6723.174/thorium-browser_130.0.6723.174_AVX2.deb"
-    - wget -P /deb-pkgs "https://vencord.dev/download/vesktop/amd64/deb" -o /deb-pkgs/vesktop.deb
+    - wget -P /deb-pkgs "https://github.com/Vencord/Vesktop/releases/download/v1.5.8/vesktop_1.5.8_amd64.deb"
 
   - name: essential packages # Sample module using the built-in Apt module to install packages
     type: apt
