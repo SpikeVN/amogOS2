@@ -38,6 +38,8 @@ stages:
       - curl
       - wget
       - ibus
+      - xdg-desktop-portal-gnome
+      - xdg-desktop-portal-gtk
 
   - name: custom deb files # Sample module demonstrating importing local and remote modules
     type: includes
