@@ -27,6 +27,10 @@ stages:
     source:
       packages:
       - neovim
+      - software-properties-common
+      - curl
+      - wget
+      
 
   - name: ibus-bamboo installation # Sample module demonstrating the Shell module with custom commands
     type: shell
@@ -43,6 +47,13 @@ stages:
     - curl -fsSL https://download.opensuse.org/repositories/home:clayrisser:sid/Debian_Unstable/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_clayrisser_sid.gpg > /dev/null
     - apt update
     - apt install ghostty
+
+    - name: vesktop installation # Sample module demonstrating the Shell module with custom commands
+      type: shell
+      commands:
+      - wget https://vencord.dev/download/vesktop/amd64/deb -o vesktop.deb
+      - apt-get install -y ./vesktop.deb
+      - rm vesktop.deb
 
   - name: example-modules # Sample module demonstrating importing local and remote modules
     type: includes
