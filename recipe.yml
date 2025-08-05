@@ -22,45 +22,42 @@ stages:
     - apt-get update
 
   # Put your custom actions below this comment
-  - name: essential packages # Sample module using the built-in Apt module to install packages
-    type: apt
-    source:
-      packages:
-      - neovim
-      - software-properties-common
-      - curl
-      - wget
-      
 
-  - name: ibus-bamboo installation # Sample module demonstrating the Shell module with custom commands
+  - name: download debs # Sample module demonstrating the Shell module with custom commands
     type: shell
     commands:
-    - add-apt-repository ppa:bamboo-engine/ibus-bamboo
-    - apt-get update
-    - apt-get install ibus ibus-bamboo --install-recommends
-    - env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['BambooUs', 'Bamboo']" && gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
+    - wget -O /deb-pkgs "https://download.opensuse.org/repositories/home:/lamlng/Debian_Unstable/amd64/ibus-bamboo_0.8.4-0_amd64.deb"
+    - wget -O /deb-pkgs "https://github.com/Alex313031/thorium/releases/download/M130.0.6723.174/thorium-browser_130.0.6723.174_AVX2.deb"
+    - wget -O /deb-pkgs "https://vencord.dev/download/vesktop/amd64/deb" -o vesktop.deb
 
-  - name: ghostty installation # Sample module demonstrating the Shell module with custom commands
+  - name: add software repositories # Sample module demonstrating the Shell module with custom commands
     type: shell
     commands:
     - echo 'deb http://download.opensuse.org/repositories/home:/clayrisser:/sid/Debian_Unstable/ /' | sudo tee /etc/apt/sources.list.d/home:clayrisser:sid.list
     - curl -fsSL https://download.opensuse.org/repositories/home:clayrisser:sid/Debian_Unstable/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_clayrisser_sid.gpg > /dev/null
     - apt update
-    - apt install ghostty
 
-  - name: vesktop installation # Sample module demonstrating the Shell module with custom commands
-    type: shell
-    commands:
-    - wget https://vencord.dev/download/vesktop/amd64/deb -o vesktop.deb
-    - apt-get install -y ./vesktop.deb
-    - rm vesktop.deb
+  - name: essential packages # Sample module using the built-in Apt module to install packages
+    type: apt
+    source:
+      packages:
+      - neovim
+      - curl
+      - wget
+      - ibus
+      - ghostty
 
-  - name: example-modules # Sample module demonstrating importing local and remote modules
+  - name: custom deb files # Sample module demonstrating importing local and remote modules
     type: includes
     includes:
       - modules/50-install-debs.yml # Sample local module present in this repository
       # - gh:vanilla-os/dev-image:main:modules/00-basics.yml # Sample GitHub remote module in the format: `gh:your-name/your-repo:branch:modules/file.yml`
       # - https://raw.githubusercontent.com/Vanilla-OS/dev-image/main/modules/05-go.yml # Sample full URL remote module
+
+  - name: post deb installation # Sample module demonstrating the Shell module with custom commands
+    type: shell
+    commands:
+    - env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['BambooUs', 'Bamboo']" && gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
 
   # Put your custom actions above this comment
 
