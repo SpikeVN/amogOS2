@@ -44,6 +44,7 @@ stages:
         - libicu-dev
         - meson 
         - ninja-build
+        - cmake
         - valac
         - neovim
         - curl
@@ -72,7 +73,7 @@ stages:
       - meson _build -Dsixel=true
       - ninja -C _build
       - ninja -C _build install
-      - apt-get purge valac meson ninja-build
+      - apt-get purge valac meson ninja-build cmake
 
   - name: custom deb files
     type: includes
