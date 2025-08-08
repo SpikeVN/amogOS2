@@ -57,25 +57,16 @@ stages:
         - kitty
         - software-properties-common
 
-
-  - name: nvidia-container-toolkit
-    type: shell
-    commands:
-      - curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
-      - curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
-      - apt-get update
-      - apt-get install -y nvidia-container-toolkit=1.17.8-1 nvidia-container-toolkit-base=1.17.8-1 libnvidia-container-tools=1.17.8-1 libnvidia-container1=1.17.8-1
-
   - name: vte-sixel
     type: shell
     commands:
-      - cd /build
+      - cd /tmp
       - git clone https://gitlab.gnome.org/GNOME/vte --depth 1
+      - cd vte
       - meson _build -Dsixel=true
       - ninja -C _build
       - ninja -C _build install
       - apt-get purge valac
-      - rm -rf /build
 
   - name: custom deb files
     type: includes
