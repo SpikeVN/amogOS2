@@ -60,6 +60,7 @@ stages:
         - ibus
         - git
         - gpg
+        - xz-utils
         - xdg-desktop-portal-gnome
         - xdg-desktop-portal-gtk
         - nvidia-settings
@@ -76,8 +77,9 @@ stages:
     type: shell
     commands:
       - cd /tmp
-      - git clone https://gitlab.gnome.org/GNOME/vte --depth 1
-      - cd vte
+      - wget -p /tmp "https://gitlab.gnome.org/api/v4/projects/1893/packages/generic/vte/0.81.90/vte-0.81.90.tar.xz"
+      - tar -xf vte-0.81.90.tar.xz -P /tmp
+      - cd vte-0.81.90
       - meson _build -Dsixel=true
       - ninja -C _build
       - ninja -C _build install
