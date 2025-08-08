@@ -1,6 +1,6 @@
 name: "ShitOS"
 id: ShitOS
-vibversion: 1.0.1
+vibversion: 0.8.1
 
 stages:
 - id: build
