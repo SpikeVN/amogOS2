@@ -42,6 +42,8 @@ stages:
         - libpcre2-dev
         - libfast-float-dev
         - libicu-dev
+        - meson 
+        - ninja-build
         - valac
         - neovim
         - curl
@@ -55,7 +57,11 @@ stages:
         - mesa-utils
         - vulkan-tools
         - kitty
+        - vlc
         - software-properties-common
+        - libnvcuvid1
+        - libnvidia-encode1
+        - nvidia-vdpau-driver
 
   - name: vte-sixel
     type: shell
@@ -66,7 +72,7 @@ stages:
       - meson _build -Dsixel=true
       - ninja -C _build
       - ninja -C _build install
-      - apt-get purge valac
+      - apt-get purge valac meson ninja-build
 
   - name: custom deb files
     type: includes
