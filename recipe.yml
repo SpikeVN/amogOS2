@@ -19,67 +19,63 @@ stages:
   - name: init-setup
     type: shell
     commands:
-    - lpkg --unlock
-    - apt-get update
+      - lpkg --unlock
+      - apt-get update
 
   # ACTIONS START
 
   - name: download debs
     type: shell
     commands:
-    - wget -P /deb-pkgs "https://download.opensuse.org/repositories/home:/lamlng/Debian_Unstable/amd64/ibus-bamboo_0.8.4-0_amd64.deb"
-    - wget -P /deb-pkgs "https://github.com/Alex313031/thorium/releases/download/M130.0.6723.174/thorium-browser_130.0.6723.174_AVX2.deb"
-    # Discord should be installed in container, not host.
-    # RPC applications will be installed alongside it.
-    # - wget -P /deb-pkgs "https://github.com/Vencord/Vesktop/releases/download/v1.5.8/vesktop_1.5.8_amd64.deb"
+      - wget -P /deb-pkgs "https://download.opensuse.org/repositories/home:/lamlng/Debian_Unstable/amd64/ibus-bamboo_0.8.4-0_amd64.deb"
+      - wget -P /deb-pkgs "https://github.com/Alex313031/thorium/releases/download/M130.0.6723.174/thorium-browser_130.0.6723.174_AVX2.deb"
+      # Discord should be installed in container, not host.
+      # RPC applications will be installed alongside it.
+      # - wget -P /deb-pkgs "https://github.com/Vencord/Vesktop/releases/download/v1.5.8/vesktop_1.5.8_amd64.deb"
 
   - name: essential packages
     type: apt
     source:
       packages:
-      # Build deps - VTE
-      - build-essential
-      - libxml2-dev
-      - libpcre2-dev
-      - libfast-float-dev
-      - libicu-dev
-      - valac
-
-
-      # User software
-      - neovim
-      - curl
-      - wget
-      - ibus
-      - git
-      - gpg
-      - xdg-desktop-portal-gnome
-      - xdg-desktop-portal-gtk
-      - nvidia-settings
-      - mesa-utils
-      - vulkan-tools
-      - kitty
-      - software-properties-common
+        - build-essential
+        - libxml2-dev
+        - libpcre2-dev
+        - libfast-float-dev
+        - libicu-dev
+        - valac
+        - neovim
+        - curl
+        - wget
+        - ibus
+        - git
+        - gpg
+        - xdg-desktop-portal-gnome
+        - xdg-desktop-portal-gtk
+        - nvidia-settings
+        - mesa-utils
+        - vulkan-tools
+        - kitty
+        - software-properties-common
 
 
   - name: nvidia-container-toolkit
     type: shell
     commands:
-    - curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
-    - curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
-    - apt-get update
-    - apt-get install -y nvidia-container-toolkit=1.17.8-1 nvidia-container-toolkit-base=1.17.8-1 libnvidia-container-tools=1.17.8-1 libnvidia-container1=1.17.8-1
+      - curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+      - curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+      - apt-get update
+      - apt-get install -y nvidia-container-toolkit=1.17.8-1 nvidia-container-toolkit-base=1.17.8-1 libnvidia-container-tools=1.17.8-1 libnvidia-container1=1.17.8-1
 
   - name: vte-sixel
     type: shell
     commands:
-    - cd /build
-    - git clone https://gitlab.gnome.org/GNOME/vte --depth 1
-    - meson _build -Dsixel=true
-    - ninja -C _build
-    - ninja -C _build install
-    - apt-get purge valac
-    - rm -rf /build
+      - cd /build
+      - git clone https://gitlab.gnome.org/GNOME/vte --depth 1
+      - meson _build -Dsixel=true
+      - ninja -C _build
+      - ninja -C _build install
+      - apt-get purge valac
+      - rm -rf /build
 
   - name: custom deb files
     type: includes
@@ -96,9 +92,9 @@ stages:
   - name: cleanup
     type: shell
     commands:
-    - apt-get autoremove -y
-    - apt-get clean
-    - lpkg --lock
+      - apt-get autoremove -y
+      - apt-get clean
+      - lpkg --lock
 
   - name: fsguard
     type: fsguard
