@@ -1,15 +1,16 @@
-name: "SpikeBonjour's Uncrashable OS" # Replace this name with your image name
-id: amogOS2 # Replace this ID with your image ID
+name: "ShitOS"
+id: ShitOS
+vibversion: 1.0.1
+
 stages:
 - id: build
-  base: ghcr.io/vanilla-os/nvidia:main # Optionally, Replace this image URL with a different one i.e. nvidia:main, etc
+  base: ghcr.io/vanilla-os/nvidia-exp:main
   singlelayer: false
   labels:
-    maintainer: SpikeBonjour # Optionally, Replace this with your name
+    maintainer: Tri Phuong Nguyen
   args:
-    DEBIAN_FRONTEND: noninteractive # Set the image environment as non-interactive
+    DEBIAN_FRONTEND: noninteractive
   
-  # Commands to run first before building the modules
   runs:
     commands:
       - echo 'APT::Install-Recommends "1";' > /etc/apt/apt.conf.d/01norecommends
@@ -21,37 +22,71 @@ stages:
     - lpkg --unlock
     - apt-get update
 
-  # Put your custom actions below this comment
+  # ACTIONS START
 
-  - name: download debs # Sample module demonstrating the Shell module with custom commands
+  - name: download debs
     type: shell
     commands:
     - wget -P /deb-pkgs "https://download.opensuse.org/repositories/home:/lamlng/Debian_Unstable/amd64/ibus-bamboo_0.8.4-0_amd64.deb"
     - wget -P /deb-pkgs "https://github.com/Alex313031/thorium/releases/download/M130.0.6723.174/thorium-browser_130.0.6723.174_AVX2.deb"
-    - wget -P /deb-pkgs "https://github.com/Vencord/Vesktop/releases/download/v1.5.8/vesktop_1.5.8_amd64.deb"
+    # Discord should be installed in container, not host.
+    # RPC applications will be installed alongside it.
+    # - wget -P /deb-pkgs "https://github.com/Vencord/Vesktop/releases/download/v1.5.8/vesktop_1.5.8_amd64.deb"
 
-  - name: essential packages # Sample module using the built-in Apt module to install packages
+  - name: essential packages
     type: apt
     source:
       packages:
+      # Build deps - VTE
+      - build-essential
+      - libxml2-dev
+      - libpcre2-dev
+      - libfast-float-dev
+      - libicu-dev
+      - valac
+
+
+      # User software
       - neovim
       - curl
       - wget
       - ibus
+      - git
+      - gpg
       - xdg-desktop-portal-gnome
       - xdg-desktop-portal-gtk
       - nvidia-settings
       - mesa-utils
       - vulkan-tools
+      - kitty
+      - software-properties-common
 
-  - name: custom deb files # Sample module demonstrating importing local and remote modules
+
+  - name: nvidia-container-toolkit
+    type: shell
+    commands:
+    - curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+    - curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+    - apt-get update
+    - apt-get install -y nvidia-container-toolkit=1.17.8-1 nvidia-container-toolkit-base=1.17.8-1 libnvidia-container-tools=1.17.8-1 libnvidia-container1=1.17.8-1
+
+  - name: vte-sixel
+    type: shell
+    commands:
+    - cd /build
+    - git clone https://gitlab.gnome.org/GNOME/vte --depth 1
+    - meson _build -Dsixel=true
+    - ninja -C _build
+    - ninja -C _build install
+    - apt-get purge valac
+    - rm -rf /build
+
+  - name: custom deb files
     type: includes
     includes:
-      - modules/50-install-debs.yml # Sample local module present in this repository
-      # - gh:vanilla-os/dev-image:main:modules/00-basics.yml # Sample GitHub remote module in the format: `gh:your-name/your-repo:branch:modules/file.yml`
-      # - https://raw.githubusercontent.com/Vanilla-OS/dev-image/main/modules/05-go.yml # Sample full URL remote module
+      - modules/50-install-debs.yml
 
-  # Put your custom actions above this comment
+  # ACTIONS END
 
   - name: set-image-name-abroot
     type: includes

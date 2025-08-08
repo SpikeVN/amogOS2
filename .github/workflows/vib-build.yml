@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  CUSTOM_IMAGE_NAME: amogOS2
+  CUSTOM_IMAGE_NAME: ShitOS
   BUILDX_NO_DEFAULT_ATTESTATIONS: 1
 
 jobs:
