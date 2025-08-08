@@ -42,6 +42,11 @@ stages:
         - libpcre2-dev
         - libfast-float-dev
         - libicu-dev
+        - libcairo2-dev
+        - libfribidi-dev
+        - liblz4-dev
+        - libpango1.0-dev
+        - libgnutls28-dev
         - meson 
         - ninja-build
         - cmake
