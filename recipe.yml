@@ -77,8 +77,10 @@ stages:
     type: shell
     commands:
       - cd /tmp
-      - wget -P /tmp "https://gitlab.gnome.org/api/v4/projects/1893/packages/generic/vte/0.81.90/vte-0.81.90.tar.xz"
-      - tar -xf /tmp/vte-0.81.90.tar.xz
+      # - wget -P /tmp "https://gitlab.gnome.org/api/v4/projects/1893/packages/generic/vte/0.81.90/vte-0.81.90.tar.xz"
+      # - tar -xf /tmp/vte-0.81.90.tar.xz
+      # - cd vte-0.81.90
+      - git clone https://gitlab.gnome.org/GNOME/vte/
       - cd vte-0.81.90
       - meson _build -Dsixel=true
       - ninja -C _build
