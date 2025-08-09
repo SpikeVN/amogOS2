@@ -37,23 +37,23 @@ stages:
     type: apt
     source:
       packages:
-        - build-essential
-        - libxml2-dev
-        - libpcre2-dev
-        - libfast-float-dev
-        - libicu-dev
-        - libcairo2-dev
-        - libfribidi-dev
-        - liblz4-dev
-        - libpango1.0-dev
-        - libgnutls28-dev
-        - libgtk-3-dev
-        - libgtk-4-dev
-        - libgirepository-1.0-dev
-        - meson 
-        - ninja-build
-        - cmake
-        - valac
+        # - build-essential
+        # - libxml2-dev
+        # - libpcre2-dev
+        # - libfast-float-dev
+        # - libicu-dev
+        # - libcairo2-dev
+        # - libfribidi-dev
+        # - liblz4-dev
+        # - libpango1.0-dev
+        # - libgnutls28-dev
+        # - libgtk-3-dev
+        # - libgtk-4-dev
+        # - libgirepository-1.0-dev
+        # - meson 
+        # - ninja-build
+        # - cmake
+        # - valac
         - neovim
         - curl
         - wget
@@ -73,19 +73,19 @@ stages:
         - libnvidia-encode1
         - nvidia-vdpau-driver
 
-  - name: vte-sixel
-    type: shell
-    commands:
-      - cd /tmp
-      # - wget -P /tmp "https://gitlab.gnome.org/api/v4/projects/1893/packages/generic/vte/0.81.90/vte-0.81.90.tar.xz"
-      # - tar -xf /tmp/vte-0.81.90.tar.xz
-      # - cd vte-0.81.90
-      - git clone https://gitlab.gnome.org/GNOME/vte/
-      - cd vte-0.81.90
-      - meson _build -Dsixel=true
-      - ninja -C _build
-      - ninja -C _build install
-      - apt-get purge valac meson ninja-build cmake
+  # - name: vte-sixel
+  #   type: shell
+  #   commands:
+  #     - cd /tmp
+  #     # - wget -P /tmp "https://gitlab.gnome.org/api/v4/projects/1893/packages/generic/vte/0.81.90/vte-0.81.90.tar.xz"
+  #     # - tar -xf /tmp/vte-0.81.90.tar.xz
+  #     # - cd vte-0.81.90
+  #     - git clone https://gitlab.gnome.org/GNOME/vte/
+  #     - cd vte-0.81.90
+  #     - meson _build -Dsixel=true
+  #     - ninja -C _build
+  #     - ninja -C _build install
+  #     - apt-get purge valac meson ninja-build cmake
 
   - name: custom deb files
     type: includes
