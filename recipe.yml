@@ -61,17 +61,17 @@ stages:
         # - git
         # - gpg
         # - xz-utils
-        # - xdg-desktop-portal-gnome
-        # - xdg-desktop-portal-gtk
+        - xdg-desktop-portal-gnome
+        - xdg-desktop-portal-gtk
         # - nvidia-settings
         # - mesa-utils
         # - vulkan-tools
         - kitty
-        # - vlc
+        - vlc
         # - software-properties-common
         # - libnvcuvid1
-        # - libnvidia-encode1
-        # - nvidia-vdpau-driver
+        - libnvidia-encode1
+        - nvidia-vdpau-driver
 
   # - name: vte-sixel
   #   type: shell
