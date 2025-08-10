@@ -57,19 +57,19 @@ stages:
         # - neovim
         # - curl
         # - wget
-        # - ibus
+        - ibus
         # - git
         # - gpg
         # - xz-utils
         - xdg-desktop-portal-gnome
         - xdg-desktop-portal-gtk
-        # - nvidia-settings
-        # - mesa-utils
-        # - vulkan-tools
+        - nvidia-settings
+        - mesa-utils
+        - vulkan-tools
         - kitty
         - vlc
         # - software-properties-common
-        # - libnvcuvid1
+        - libnvcuvid1
         - libnvidia-encode1
         - nvidia-vdpau-driver
 
