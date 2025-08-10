@@ -28,7 +28,7 @@ stages:
     type: shell
     commands:
       - wget -P /deb-pkgs "https://download.opensuse.org/repositories/home:/lamlng/Debian_Unstable/amd64/ibus-bamboo_0.8.4-0_amd64.deb"
-      - wget -P /deb-pkgs "https://github.com/Alex313031/thorium/releases/download/M130.0.6723.174/thorium-browser_130.0.6723.174_AVX2.deb"
+      # - wget -P /deb-pkgs "https://github.com/Alex313031/thorium/releases/download/M130.0.6723.174/thorium-browser_130.0.6723.174_AVX2.deb"
       # Discord should be installed in container, not host.
       # RPC applications will be installed alongside it.
       # - wget -P /deb-pkgs "https://github.com/Vencord/Vesktop/releases/download/v1.5.8/vesktop_1.5.8_amd64.deb"
@@ -54,24 +54,24 @@ stages:
         # - ninja-build
         # - cmake
         # - valac
-        - neovim
-        - curl
-        - wget
-        - ibus
-        - git
-        - gpg
-        - xz-utils
-        - xdg-desktop-portal-gnome
-        - xdg-desktop-portal-gtk
-        - nvidia-settings
-        - mesa-utils
-        - vulkan-tools
+        # - neovim
+        # - curl
+        # - wget
+        # - ibus
+        # - git
+        # - gpg
+        # - xz-utils
+        # - xdg-desktop-portal-gnome
+        # - xdg-desktop-portal-gtk
+        # - nvidia-settings
+        # - mesa-utils
+        # - vulkan-tools
         - kitty
-        - vlc
-        - software-properties-common
-        - libnvcuvid1
-        - libnvidia-encode1
-        - nvidia-vdpau-driver
+        # - vlc
+        # - software-properties-common
+        # - libnvcuvid1
+        # - libnvidia-encode1
+        # - nvidia-vdpau-driver
 
   # - name: vte-sixel
   #   type: shell
