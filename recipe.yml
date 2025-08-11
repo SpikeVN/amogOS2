@@ -44,6 +44,7 @@ stages:
         - libnvcuvid1
         - libnvidia-encode1
         - nvidia-vdpau-driver
+        - file-roller
         # pyenv
         - python3-pip
         - make 
