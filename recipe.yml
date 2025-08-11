@@ -62,7 +62,7 @@ stages:
         - libxmlsec1-dev
         - libffi-dev
         - liblzma-dev
-        - libstd-dev
+        - libstdc++-dev
 
 
   - name: custom deb files
