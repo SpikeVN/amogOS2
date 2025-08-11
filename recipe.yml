@@ -28,10 +28,6 @@ stages:
     type: shell
     commands:
       - wget -P /deb-pkgs "https://download.opensuse.org/repositories/home:/lamlng/Debian_Unstable/amd64/ibus-bamboo_0.8.4-0_amd64.deb"
-      # - wget -P /deb-pkgs "https://github.com/Alex313031/thorium/releases/download/M130.0.6723.174/thorium-browser_130.0.6723.174_AVX2.deb"
-      # Discord should be installed in container, not host.
-      # RPC applications will be installed alongside it.
-      # - wget -P /deb-pkgs "https://github.com/Vencord/Vesktop/releases/download/v1.5.8/vesktop_1.5.8_amd64.deb"
 
   - name: essential packages
     type: apt
@@ -48,6 +44,26 @@ stages:
         - libnvcuvid1
         - libnvidia-encode1
         - nvidia-vdpau-driver
+        # pyenv
+        - python3-pip
+        - make 
+        - build-essential 
+        - libssl-dev 
+        - zlib1g-dev
+        - libbz2-dev
+        - libreadline-dev
+        - libsqlite3-dev 
+        - curl 
+        - git
+        - libncursesw5-dev
+        - xz-utils
+        - tk-dev
+        - libxml2-dev
+        - libxmlsec1-dev
+        - libffi-dev
+        - liblzma-dev
+        - libstd-dev
+
 
   - name: custom deb files
     type: includes
